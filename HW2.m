@@ -30,7 +30,7 @@ for trans=0:3
     %Dithering1
     DIt=q*85+uint8(r);
     Mean=mean(r,'all')+mean(q*85,'all');
-    A=DIt>repmat(Mean,floor(M/2)*2,floor(N/2)*2);
+    A=DIt>Mean;
     subplot(2,3,4),imshow(A,gray(4)),title("Dithering method1-1"),colorbar
     %other method
     AA=zeros(floor(M/2)*2,floor(N/2)*2);
