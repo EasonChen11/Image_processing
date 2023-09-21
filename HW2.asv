@@ -1,0 +1,18 @@
+clear
+close all
+i=imread("monkey.png");
+I=rgb2gray(i);
+imshow(I,gray(256));
+[M,N,C]=size(I);
+q=I/85;
+D=[0 56;84 28];
+r=repmat(D,floor(M/2),floor(N/2));
+q=q(1:2*floor(M/2),1:2*floor(N/2));
+D2=I-q*85;
+D3=D2>r;
+p=q+uint8(D3);
+figure;
+imshow(p,gray(4)),colorbar
+
+DIt=q+r;
+A=DIt/85;
