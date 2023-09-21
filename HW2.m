@@ -31,7 +31,7 @@ for trans=0:3
     DIt=q*85+uint8(r);
     Mean=mean(r,'all')+mean(q*85,'all');
     A=DIt>Mean;
-    subplot(2,3,4),imshow(A,gray(4)),title("Dithering method1-1"),colorbar
+    subplot(2,3,4),imshow(A,gray(2)),title("Dithering method1-1"),colorbar
     %other method
     AA=zeros(floor(M/2)*2,floor(N/2)*2);
     for cnt=0.5:0.5:1.5
