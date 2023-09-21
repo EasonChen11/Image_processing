@@ -9,10 +9,10 @@ for trans=0:3
     %change to gray
     I=rgb2gray(i);
     %show gray picture
-    subplot(2,2,1),imshow(I,gray(256)),title("gray"),colorbar
+    subplot(2,3,1),imshow(I),title("gray"),colorbar
     
     %quantization
-    subplot(2,2,2),imshow(grayslice(I,4),gray(4)),title("quantization"),colorbar
+    subplot(2,3,2),imshow(grayslice(I,4),gray(4)),title("quantization"),colorbar
     
     %Dithering2
     [M,N,C]=size(I);%get image size
@@ -25,10 +25,23 @@ for trans=0:3
     %binary thresholding with ditering map
     D2=(Ichangesize-q*85)>r;
     p=q+uint8(D2);
-    subplot(2,2,3),imshow(p,gray(4)),title("Dithering method2"),colorbar
+    subplot(2,3,3),imshow(p,gray(4)),title("Dithering method2"),colorbar
     
     %Dithering1
-    DIt=I+uint8(r);
-    A=floor(DIt/85);%cut 4 path
-    subplot(2,2,4),imshow(A,gray(4)),title("Dithering method1"),colorbar
+    DIt=q*85+uint8(r);
+    Mean=mean(r,'all')+mean(q*85,'all');
+    A=DIt>repmat(Mean,floor(M/2)*2,floor(N/2)*2);
+    subplot(2,3,4),imshow(A,gray(4)),title("Dithering method1-1"),colorbar
+    %other method
+    AA=zeros(floor(M/2)*2,floor(N/2)*2);
+    for cnt=0.5:0.5:1.5
+        AA=AA+(DIt>repmat(Mean*cnt,floor(M/2)*2,floor(N/2)*2));
+    end
+    subplot(2,3,5),imshow(uint8(AA),gray(4)),title("Dithering method1-2"),colorbar
 end
+imwrite(I,"gray.png");
+imwrite(grayslice(I,4),gray(4),"quantization.png");
+imwrite(p,gray(4),"Dithering2.png");
+imwrite(A,gray(2),"Dithering1-1.png");
+imwrite(AA,gray(4),"Dithering1-2.png");
+
