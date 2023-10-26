@@ -16,8 +16,8 @@ ireverse=imrotate(icounterclockwise,-60,"bicubic");%rotate input image of counte
 fprintf("size of reverse rotation: %d * %d\n",ireverser,ireversec);
 figure,imshow(ireverse),title('reverse rotation image')
 
-uprblack=(ireverser-ir)/2;%calculate up black width
-leftrblack=(ireversec-ic)/2;%calculate left black width
+uprblack=round((ireverser-ir)/2);%calculate up black width
+leftrblack=round((ireversec-ic)/2);%calculate left black width
 ireverse=ireverse(uprblack+1:uprblack+ir,leftrblack+1:leftrblack+ic);%take image of remove black
 fprintf("psnr between origin and reverse rotation: %f\n",psnr(i,ireverse));
 figure,imshowpair(i,ireverse,"montage"),title('origin image vs reverse rotation image')
